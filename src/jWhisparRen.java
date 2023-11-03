@@ -169,5 +169,6 @@ public class jWhisparRen {
         app.HandleDir(sDir+"Pornstars Like It Big","\\[PornstarsLikeItBig\\]|PornstarsLikeItBig","PornstarsLikeItBig",true);
         app.HandleDir(sDir+"Taboo Heat","\\[TabooHeat\\]|TabooHeat","TabooHeat",true);
         app.HandleDir(sDir+"Her Limit","\\[HerLimit\\]|HerLimit","HerLimit",true);
+        app.HandleDir(sDir+"Anal4k","\\[Anal4k\\]|Anal4k","Anal4k",true);
     }
 }

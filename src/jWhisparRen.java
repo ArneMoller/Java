@@ -36,6 +36,31 @@ public class jWhisparRen {
             e.printStackTrace();
         }
     }
+    void HandleDir(String sSrc,String sDest, String sMask, String sSerie,boolean bRename) {
+        Pattern pName=Pattern.compile(sMask,Pattern.CASE_INSENSITIVE);
+        Matcher mName;
+        try (Stream<Path> walk = Files.walk(Paths.get(sSrc))) {
+            List<String> result = walk.filter(Files::isRegularFile).map(x -> x.toString()).collect(Collectors.toList());
+            for(String s: result) {
+                File f = new File(s);
+                String sName = f.getName(), sOrgName = sName;
+                String sExt=sName.substring(sName.lastIndexOf('.')+1, sName.length());
+                sName=sName.substring(0,sName.length()-sExt.length()-1);
+                sOrgName=sOrgName.substring(0,sOrgName.length()-sExt.length()-1);
+                mName=pName.matcher(sName);
+                if(mName.find()&&sExt.matches("(avi|mp4|mkv|mov|wmv)$")) {
+                    System.out.println(sSrc + File.separator + sOrgName + "." + sExt+"  ->  " + sDest + File.separator + sOrgName + "." + sExt);
+                    if (bRename) {
+                        renameFile(sSrc + File.separator + sOrgName + "." + sExt, sDest + File.separator + sOrgName + "." + sExt);
+                    }
+                }
+            }
+        } catch (Exception excep) {
+            System.out.println(excep.getMessage());
+            excep.printStackTrace();
+        }
+        HandleDir(sDest,sMask,sSerie,bRename);
+    }
     void HandleDir(String sDir, String sMask, String sSerie,boolean bRename) {
         Pattern pDate1=Pattern.compile("[0-9][0-9][0-9][0-9][ -\\.][0-9][0-9][ -\\.][0-9][0-9]")
                 ,pDate2=Pattern.compile("[ -\\.][0-9][0-9][ -\\.][0-9][0-9][ -\\.][0-9][0-9][ -\\. ,]")
@@ -144,34 +169,36 @@ public class jWhisparRen {
     }
     public static void main(String[] args) {
         jWhisparRen app=new jWhisparRen();
-        System.out.println("Start jWhisparRen");
-        String sDir="o:\\Videos\\Whisparr\\";
+        String sSrc="o:\\Downloads\\completed\\";
+        String sDest="o:\\Videos\\Whisparr\\";
 
-        if (args.length>0){
-            sDir=args[0];
+        if (args.length>1){
+            sSrc=args[0];
+            sDest=args[1];
         }
-        app.HandleDir(sDir+"Anal Mom","analmom","AnalMom",true);
-        app.HandleDir(sDir+"Asshole Fever","ahf|AssHoleFever","AssHoleFever",true);
-        app.HandleDir(sDir+"Anal Teen Angels","AnalTeenAngels","AnalTeenAngels",true);
-        app.HandleDir(sDir+"Big Butts Like It Big","BigButtsLikeItBig","BigButtsLikeItBig",true);
-        app.HandleDir(sDir+"Big Tits At School","\\[BigTitsAtSchool\\]|btas|BigTitsAtSchool","BigTitsAtSchool",true);
-        app.HandleDir(sDir+"Big Tits At Work","\\[BigTitsAtWork\\]|btaw|BigTitsAtWork","BigTitsAtWork",true);
-        app.HandleDir(sDir+"Big Wet Butts","\\[BigWetButts\\]|BigWetButts","BigWetButts",true);
-        app.HandleDir(sDir+"Brazzers Exxtra","BrazzersExxtra","BrazzersExxtra",true);
-        app.HandleDir(sDir+"Day With A Pornstar","\\[DayWithAPornstar\\]|DayWithAPornstar","DayWithAPornstar",true);
-        app.HandleDir(sDir+"Teens Like It Big","\\[TeensLikeItBig\\]|TeensLikeItBig|tlib","TeensLikeItBig",true);
-        app.HandleDir(sDir+"DPFanatics","DPFanatics|dpf","DPFanatics",true);
-        app.HandleDir(sDir+"Tushy","\\[tushy\\]|Tushy","Tushy",true);
-        app.HandleDir(sDir+"Tushy Raw","\\[tushyraw\\]|Tushyraw|Tushy","TushyRaw",true);
+        System.out.println("Starting jWhisparRen sSrc="+sSrc+"  sDest="+sDest);
+        app.HandleDir(sSrc,sDest+"Anal Mom","analmom","AnalMom",true);
+        app.HandleDir(sSrc,sDest+"Asshole Fever","ahf|AssHoleFever","AssHoleFever",true);
+        app.HandleDir(sSrc,sDest+"Anal Teen Angels","AnalTeenAngels","AnalTeenAngels",true);
+        app.HandleDir(sSrc,sDest+"Big Butts Like It Big","BigButtsLikeItBig","BigButtsLikeItBig",true);
+        app.HandleDir(sSrc,sDest+"Big Tits At School","\\[BigTitsAtSchool\\]|btas|BigTitsAtSchool","BigTitsAtSchool",true);
+        app.HandleDir(sSrc,sDest+"Big Tits At Work","\\[BigTitsAtWork\\]|btaw|BigTitsAtWork","BigTitsAtWork",true);
+        app.HandleDir(sSrc,sDest+"Big Wet Butts","\\[BigWetButts\\]|BigWetButts","BigWetButts",true);
+        app.HandleDir(sSrc,sDest+"Brazzers Exxtra","BrazzersExxtra","BrazzersExxtra",true);
+        app.HandleDir(sSrc,sDest+"Day With A Pornstar","\\[DayWithAPornstar\\]|DayWithAPornstar","DayWithAPornstar",true);
+        app.HandleDir(sSrc,sDest+"DPFanatics","DPFanatics|dpf","DPFanatics",true);
+        app.HandleDir(sSrc,sDest+"Tushy","\\[tushy\\]|Tushy","Tushy",true);
+        app.HandleDir(sSrc,sDest+"Tushy Raw","\\[tushyraw\\]|Tushyraw|Tushy","TushyRaw",true);
 
-        app.HandleDir(sDir+"Dirty Masseur","\\[DirtyMasseur\\]|DirtyMasseur","DirtyMasseur",true);
-        app.HandleDir(sDir+"Milfs Like It Big","\\[MilfsLikeitBig\\]|MilfsLikeitBig","MilfsLikeitBig",true);
-        app.HandleDir(sDir+"Mommy Got Boobs","\\[MommyGotBoobs\\]|MommyGotBoobs","MommyGotBoobs",true);
-        app.HandleDir(sDir+"Moms In Control","\\[MomsInControl\\]|MomsInControl","MomsInControl",true);
-        app.HandleDir(sDir+"Pornstars Like It Big","\\[PornstarsLikeItBig\\]|PornstarsLikeItBig","PornstarsLikeItBig",true);
-        app.HandleDir(sDir+"Taboo Heat","\\[TabooHeat\\]|TabooHeat","TabooHeat",true);
-        app.HandleDir(sDir+"Her Limit","\\[HerLimit\\]|HerLimit","HerLimit",true);
-        app.HandleDir(sDir+"Anal4k","\\[Anal4k\\]|Anal4k","Anal4k",true);
-        System.out.println("End jWhisparRen");
+        app.HandleDir(sSrc,sDest+"Dirty Masseur","\\[DirtyMasseur\\]|DirtyMasseur","DirtyMasseur",true);
+        app.HandleDir(sSrc,sDest+"Milfs Like It Big","\\[MilfsLikeitBig\\]|MilfsLikeitBig","MilfsLikeitBig",true);
+        app.HandleDir(sSrc,sDest+"Mommy Got Boobs","\\[MommyGotBoobs\\]|MommyGotBoobs","MommyGotBoobs",true);
+        app.HandleDir(sSrc,sDest+"Moms In Control","\\[MomsInControl\\]|MomsInControl","MomsInControl",true);
+        app.HandleDir(sSrc,sDest+"Pornstars Like It Big","\\[PornstarsLikeItBig\\]|PornstarsLikeItBig","PornstarsLikeItBig",true);
+        app.HandleDir(sSrc,sDest+"Taboo Heat","\\[TabooHeat\\]|TabooHeat","TabooHeat",true);
+        app.HandleDir(sSrc,sDest+"Her Limit","\\[HerLimit\\]|HerLimit","HerLimit",true);
+        app.HandleDir(sSrc,sDest+"Anal4k","\\[Anal4k\\]|Anal4k","Anal4k",true);
+        app.HandleDir(sSrc,sDest+"Mom Swap","\\[MomSwap\\]|MomSwap","MomSwap",true);
+        System.out.println("Ending jWhisparRen");
     }
 }

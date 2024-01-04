@@ -196,9 +196,10 @@ public class jWhisparRen {
         app.HandleDir(sSrc,sDest+"Moms In Control","\\[MomsInControl\\]|MomsInControl","MomsInControl",true);
         app.HandleDir(sSrc,sDest+"Pornstars Like It Big","\\[PornstarsLikeItBig\\]|PornstarsLikeItBig","PornstarsLikeItBig",true);
         app.HandleDir(sSrc,sDest+"Taboo Heat","\\[TabooHeat\\]|TabooHeat","TabooHeat",true);
-        app.HandleDir(sSrc,sDest+"Her Limit","\\[HerLimit\\]|HerLimit","HerLimit",true);
+//        app.HandleDir(sSrc,sDest+"Her Limit","\\[HerLimit\\]|HerLimit","HerLimit",true);
         app.HandleDir(sSrc,sDest+"Anal4k","\\[Anal4k\\]|Anal4k","Anal4k",true);
         app.HandleDir(sSrc,sDest+"Mom Swap","\\[MomSwap\\]|MomSwap","MomSwap",true);
+        app.HandleDir(sSrc,sDest+"Analized","\\[Analized\\]|Analized","Analized",true);
         System.out.println("Ending jWhisparRen");
     }
 }

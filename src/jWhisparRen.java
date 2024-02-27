@@ -187,7 +187,7 @@ public class jWhisparRen {
         app.HandleDir(sSrc,sDest+"Brazzers Exxtra","BrazzersExxtra","BrazzersExxtra",true);
         app.HandleDir(sSrc,sDest+"Day With A Pornstar","\\[DayWithAPornstar\\]|DayWithAPornstar","DayWithAPornstar",true);
         app.HandleDir(sSrc,sDest+"DPFanatics","DPFanatics|dpf","DPFanatics",true);
-        app.HandleDir(sSrc,sDest+"Tushy Raw","\\[tushyraw\\]|Tushyraw|Tushy","TushyRaw",true);
+        app.HandleDir(sSrc,sDest+"Tushy Raw","\\[tushyraw\\]|Tushyraw","TushyRaw",true);
         app.HandleDir(sSrc,sDest+"Tushy","\\[tushy\\]|Tushy","Tushy",true);
 
         app.HandleDir(sSrc,sDest+"Dirty Masseur","\\[DirtyMasseur\\]|DirtyMasseur","DirtyMasseur",true);
@@ -201,6 +201,7 @@ public class jWhisparRen {
 //        app.HandleDir(sSrc,sDest+"Analized","\\[Analized\\]|Analized","Analized",true);
         app.HandleDir(sSrc,sDest+"Mom Swapped","\\[MomSwapped\\]|MomSwapped","MomSwapped",true);
         app.HandleDir(sSrc,sDest+"Mom Swap","\\[MomSwap\\]|MomSwap","MomSwap",true);
+        app.HandleDir(sSrc,sDest+"Anal Beauty","Anal-Beauty|Analbeauty","Anal-Beauty",true);
         System.out.println("Ending jWhisparRen");
     }
 }

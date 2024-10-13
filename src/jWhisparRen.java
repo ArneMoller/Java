@@ -59,7 +59,10 @@ public class jWhisparRen {
             System.out.println(excep.getMessage());
             excep.printStackTrace();
         }
-        HandleDir(sDest,sMask,sSerie,bRename);
+        if (bRename)
+            HandleDir(sDest,sMask,sSerie,bRename);
+        else
+            HandleDir(sSrc,sMask,sSerie,bRename);
     }
     void HandleDir(String sDir, String sMask, String sSerie,boolean bRename) {
         Pattern pDate1=Pattern.compile("[0-9][0-9][0-9][0-9][ -\\.][0-9][0-9][ -\\.][0-9][0-9]")
@@ -202,6 +205,10 @@ public class jWhisparRen {
         app.HandleDir(sSrc,sDest+"Mom Swap","\\[MomSwap\\]|MomSwap","MomSwap",true);
         app.HandleDir(sSrc,sDest+"Anal Beauty","Anal-Beauty|Analbeauty","Anal-Beauty",true);
         app.HandleDir(sSrc,sDest+"Private","\\[Private\\]|Private","Private",true);
+//        app.HandleDir(sSrc,sDest+"All Anal All The Time","\\[AllAnalAllTheTime\\]|AllAnalAllTheTime","AllAnalAllTheTime",true);
+        app.HandleDir(sSrc,sDest+"Blacked Raw","\\[BlackedRaw\\]|BlackedRaw","BlackedRaw",true);
+        app.HandleDir(sSrc,sDest+"Blacked","\\[Blacked\\]|Blacked","Blacked",true);
+
         System.out.println("Ending jWhisparRen");
     }
 }

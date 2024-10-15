@@ -5,7 +5,6 @@ import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -39,7 +38,7 @@ public class jWhisparRen {
     void HandleDir(String sSrc,String sDest, String sMask, String sSerie,boolean bRename) {
         Pattern pName=Pattern.compile(sMask,Pattern.CASE_INSENSITIVE);
         Matcher mName;
-        try (Stream<Path> walk = Files.walk(Paths.get(sSrc))) {
+        try (Stream<Path> walk = Files.walk(Paths.get(sSrc),1)) {
             List<String> result = walk.filter(Files::isRegularFile).map(x -> x.toString()).collect(Collectors.toList());
             for(String s: result) {
                 File f = new File(s);
@@ -72,7 +71,7 @@ public class jWhisparRen {
                 ,pAlphaNum=Pattern.compile("[a-zA-Z0-9]");
         String sDest="",sDirname=sDir.substring(sDir.lastIndexOf('\\')+1,sDir.length()),sDate="";
 //    	System.out.println(" sDir="+sDir+" sDirname="+sDirname);
-        try (Stream<Path> walk = Files.walk(Paths.get(sDir))) {
+        try (Stream<Path> walk = Files.walk(Paths.get(sDir),1)) {
             List<String> result = walk.filter(Files::isRegularFile).map(x -> x.toString()).collect(Collectors.toList());
             for(String s: result) {
                 File f=new File(s);
@@ -170,6 +169,32 @@ public class jWhisparRen {
             excep.printStackTrace();
         }
     }
+    void Rescue(String sSource,String sDest,String sMask,String sSeries,boolean bRename){
+        Pattern pDate1=Pattern.compile("[0-9][0-9][0-9][0-9][ -\\.][0-9][0-9][ -\\.][0-9][0-9]")
+                ,pName=Pattern.compile(sMask,Pattern.CASE_INSENSITIVE);
+        try (Stream<Path> walk = Files.walk(Paths.get(sSource),1)) {
+            List<String> result = walk.filter(Files::isRegularFile).map(x -> x.toString()).collect(Collectors.toList());
+            for (String s : result) {
+                File f = new File(s);
+                String sName = f.getName(), sOrgName = sName,sNewName="",sDate="";
+                String sExt = sName.substring(sName.lastIndexOf('.') + 1, sName.length());
+                sName = sName.substring(0, sName.length() - sExt.length() - 1);
+                Matcher mName=pName.matcher(sName),mDate1=pDate1.matcher(sName);
+                if(mName.find() && mDate1.find()) {
+                    MatchResult mrName=mName.toMatchResult(),mrDate1=mDate1.toMatchResult();
+                    sDate=sName.substring(mrDate1.start(),mrDate1.end());
+                    sNewName=sDest + File.separator + sSeries+" - "+sDate+" - "+sName.substring(mrName.end())+ "."+sExt;
+                    if (bRename)
+                        renameFile(sSource + File.separator + sOrgName,sNewName);
+                    else
+                        System.out.println("About to rename "+sSource + File.separator + sOrgName+" to "+sNewName);
+                }
+            }
+        } catch (Exception excep) {
+            System.out.println(excep.getMessage());
+            excep.printStackTrace();
+        }
+    }
     public static void main(String[] args) {
         jWhisparRen app=new jWhisparRen();
         String sSrc="o:\\Downloads\\completed\\";
@@ -179,24 +204,25 @@ public class jWhisparRen {
             sSrc=args[0];
             sDest=args[1];
         }
+        app.Rescue(sDest+"Brazzers Exxtra\\",sDest+"Brazzers Exxtra\\ZZ Series","BrazzersExxtra - 20[0-2][0-9]-[0-1][0-9]-[0-3][0-9] - ZZSeries","ZZSeries",true);
         System.out.println("Starting jWhisparRen sSrc="+sSrc+"  sDest="+sDest);
         app.HandleDir(sSrc,sDest+"Anal Mom","analmom","AnalMom",true);
         app.HandleDir(sSrc,sDest+"Asshole Fever","ahf|AssHoleFever","AssHoleFever",true);
         app.HandleDir(sSrc,sDest+"Anal Teen Angels","AnalTeenAngels","AnalTeenAngels",true);
-        app.HandleDir(sSrc,sDest+"Big Butts Like It Big","BigButtsLikeItBig","BigButtsLikeItBig",true);
-        app.HandleDir(sSrc,sDest+"Big Tits At School","\\[BigTitsAtSchool\\]|btas|BigTitsAtSchool","BigTitsAtSchool",true);
-        app.HandleDir(sSrc,sDest+"Big Tits At Work","\\[BigTitsAtWork\\]|btaw|BigTitsAtWork","BigTitsAtWork",true);
-        app.HandleDir(sSrc,sDest+"Big Wet Butts","\\[BigWetButts\\]|BigWetButts","BigWetButts",true);
+        app.HandleDir(sSrc,sDest+"Brazzers Exxtra\\Big Butts Like It Big","BigButtsLikeItBig","BigButtsLikeItBig",true);
+        app.HandleDir(sSrc,sDest+"Brazzers Exxtra\\Big Tits At School","\\[BigTitsAtSchool\\]|btas|BigTitsAtSchool","BigTitsAtSchool",true);
+        app.HandleDir(sSrc,sDest+"Brazzers Exxtra\\Big Tits At Work","\\[BigTitsAtWork\\]|btaw|BigTitsAtWork","BigTitsAtWork",true);
+        app.HandleDir(sSrc,sDest+"Brazzers Exxtra\\Big Wet Butts","\\[BigWetButts\\]|BigWetButts","BigWetButts",true);
         app.HandleDir(sSrc,sDest+"Brazzers Exxtra","BrazzersExxtra","BrazzersExxtra",true);
-        app.HandleDir(sSrc,sDest+"Day With A Pornstar","\\[DayWithAPornstar\\]|DayWithAPornstar","DayWithAPornstar",true);
+        app.HandleDir(sSrc,sDest+"Brazzers Exxtra\\Day With A Pornstar","\\[DayWithAPornstar\\]|DayWithAPornstar","DayWithAPornstar",true);
         app.HandleDir(sSrc,sDest+"DPFanatics","DPFanatics|dpf","DPFanatics",true);
         app.HandleDir(sSrc,sDest+"Tushy Raw","\\[tushyraw\\]|Tushyraw","TushyRaw",true);
         app.HandleDir(sSrc,sDest+"Tushy","\\[tushy\\]|Tushy","Tushy",true);
-        app.HandleDir(sSrc,sDest+"Dirty Masseur","\\[DirtyMasseur\\]|DirtyMasseur","DirtyMasseur",true);
-        app.HandleDir(sSrc,sDest+"Milfs Like It Big","\\[MilfsLikeitBig\\]|MilfsLikeitBig","MilfsLikeitBig",true);
-        app.HandleDir(sSrc,sDest+"Mommy Got Boobs","\\[MommyGotBoobs\\]|MommyGotBoobs","MommyGotBoobs",true);
-        app.HandleDir(sSrc,sDest+"Moms In Control","\\[MomsInControl\\]|MomsInControl","MomsInControl",true);
-        app.HandleDir(sSrc,sDest+"Pornstars Like It Big","\\[PornstarsLikeItBig\\]|PornstarsLikeItBig","PornstarsLikeItBig",true);
+        app.HandleDir(sSrc,sDest+"Brazzers Exxtra\\Dirty Masseur","\\[DirtyMasseur\\]|DirtyMasseur","DirtyMasseur",true);
+        app.HandleDir(sSrc,sDest+"Brazzers Exxtra\\Milfs Like It Big","\\[MilfsLikeitBig\\]|MilfsLikeitBig","MilfsLikeitBig",true);
+        app.HandleDir(sSrc,sDest+"Brazzers Exxtra\\Mommy Got Boobs","\\[MommyGotBoobs\\]|MommyGotBoobs","MommyGotBoobs",true);
+        app.HandleDir(sSrc,sDest+"Brazzers Exxtra\\Moms In Control","\\[MomsInControl\\]|MomsInControl","MomsInControl",true);
+        app.HandleDir(sSrc,sDest+"Brazzers Exxtra\\Pornstars Like It Big","\\[PornstarsLikeItBig\\]|PornstarsLikeItBig","PornstarsLikeItBig",true);
         app.HandleDir(sSrc,sDest+"Taboo Heat","\\[TabooHeat\\]|TabooHeat","TabooHeat",true);
 //        app.HandleDir(sSrc,sDest+"Her Limit","\\[HerLimit\\]|HerLimit","HerLimit",true);
         app.HandleDir(sSrc,sDest+"Anal4k","\\[Anal4k\\]|Anal4k","Anal4k",true);
@@ -208,7 +234,6 @@ public class jWhisparRen {
 //        app.HandleDir(sSrc,sDest+"All Anal All The Time","\\[AllAnalAllTheTime\\]|AllAnalAllTheTime","AllAnalAllTheTime",true);
         app.HandleDir(sSrc,sDest+"Blacked Raw","\\[BlackedRaw\\]|BlackedRaw","BlackedRaw",true);
         app.HandleDir(sSrc,sDest+"Blacked","\\[Blacked\\]|Blacked","Blacked",true);
-
-        System.out.println("Ending jWhisparRen");
+//        System.out.println("Ending jWhisparRen");
     }
 }

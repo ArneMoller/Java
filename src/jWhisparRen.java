@@ -205,7 +205,7 @@ public class jWhisparRen {
             sDest=args[1];
         }
 //        app.Rescue(sDest+"Brazzers Exxtra"+ File.separator,sDest+"Brazzers Exxtra"+ File.separator + "ZZ Series","BrazzersExxtra - 20[0-2][0-9]-[0-1][0-9]-[0-3][0-9] - ZZSeries","ZZSeries",true);
-        System.out.println("Starting jWhisparRen sSrc="+sSrc+"  sDest="+sDest);
+//        System.out.println("Starting jWhisparRen sSrc="+sSrc+"  sDest="+sDest);
         app.HandleDir(sSrc,sDest+"Anal Mom","analmom","AnalMom",true);
         app.HandleDir(sSrc,sDest+"Asshole Fever","ahf|AssHoleFever","AssHoleFever",true);
         app.HandleDir(sSrc,sDest+"DPFanatics","DPFanatics|dpf","DPFanatics",true);
@@ -225,7 +225,7 @@ public class jWhisparRen {
         app.HandleDir(sSrc,sDest+"Brazzers Exxtra" + File.separator + "Pornstars Like It Big","\\[PornstarsLikeItBig\\]|PornstarsLikeItBig","PornstarsLikeItBig",true);
         app.HandleDir(sSrc,sDest+"Taboo Heat","\\[TabooHeat\\]|TabooHeat","TabooHeat",true);
 //        app.HandleDir(sSrc,sDest+"Her Limit","\\[HerLimit\\]|HerLimit","HerLimit",true);
-        app.HandleDir(sSrc,sDest+"Anal4k","\\[Anal4k\\]|Anal4k","Anal4k",true);
+//        app.HandleDir(sSrc,sDest+"Anal4k","\\[Anal4k\\]|Anal4k","Anal4k",true);
 //        app.HandleDir(sSrc,sDest+"Analized","\\[Analized\\]|Analized","Analized",true);
         app.HandleDir(sSrc,sDest+"Mom Swapped","\\[MomSwapped\\]|MomSwapped","MomSwapped",true);
         app.HandleDir(sSrc,sDest+"Mom Swap","\\[MomSwap\\]|MomSwap","MomSwap",true);
@@ -234,6 +234,7 @@ public class jWhisparRen {
 //        app.HandleDir(sSrc,sDest+"All Anal All The Time","\\[AllAnalAllTheTime\\]|AllAnalAllTheTime","AllAnalAllTheTime",true);
         app.HandleDir(sSrc,sDest+"Blacked Raw","\\[BlackedRaw\\]|BlackedRaw","BlackedRaw",true);
         app.HandleDir(sSrc,sDest+"Blacked","\\[Blacked\\]|Blacked","Blacked",true);
+        app.HandleDir(sSrc,sDest+"Vixen","\\[Vixen\\]|Vixen","Vixen",true);
 //        System.out.println("Ending jWhisparRen");
     }
 }

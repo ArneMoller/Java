@@ -31,10 +31,10 @@ import java.sql.Statement;
 
 
 class movieRenamer{
-    void Init(){
+    void Init(String sMovie){
         String sConn;
-        sConn="jdbc:sqlite:/mnt/db/sqlite/radarr.db";
         sConn="jdbc:sqlite:o:\\radarr.db";
+        sConn="jdbc:sqlite:/mnt/db/sqlite/radarr.db";
         System.out.println("init 0000");
         try {
             System.out.println("init 0003");
@@ -190,12 +190,11 @@ class movieRenamer{
     public static void main(String args[]){
         movieRenamer app=new movieRenamer();
         String sSrc="/mnt/public/Movies";
-
         if (args.length>0){
             sSrc=args[0];
         }
 //        System.out.println("Starting jWhisparRen sSrc="+sSrc+"  sDest="+sDest);
-          app.Init();
+          app.Init(sSrc);
 //        app.HandleDir(sSrc,false);
     }
 }

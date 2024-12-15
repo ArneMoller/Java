@@ -1,10 +1,10 @@
-package jRenamer;
-
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import java.io.File;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,6 +15,23 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.MatchResult;
 public class jWhisparRen {
+    static String getEnv(){
+        String sEnv=""; 
+        String sHost="";
+        try{
+            sHost=InetAddress.getLocalHost().getHostName();
+        }catch(UnknownHostException e){
+            System.err.println("UnknownHostException "+e);
+        }
+        if(sHost.equals("moller")){
+            sEnv="Server";
+        }else if (System.getProperty("os.name").equals("Linux")){
+            sEnv="Client";
+        }else{
+            sEnv="Windows";
+        }
+        return sEnv;
+    }
     void renameFile(String sSrc,String sTrgt){
         String sErr="";
         try {
@@ -38,6 +55,7 @@ public class jWhisparRen {
     void HandleDir(String sSrc,String sDest, String sMask, String sSerie,boolean bRename) {
         Pattern pName=Pattern.compile(sMask,Pattern.CASE_INSENSITIVE);
         Matcher mName;
+//        System.out.println("HandleDir 1("+sSrc+","+sDest+","+sMask+","+sSerie+","+bRename+")" );
         try (Stream<Path> walk = Files.walk(Paths.get(sSrc),1)) {
             List<String> result = walk.filter(Files::isRegularFile).map(x -> x.toString()).collect(Collectors.toList());
             for(String s: result) {
@@ -64,6 +82,7 @@ public class jWhisparRen {
             HandleDir(sSrc,sMask,sSerie,bRename);
     }
     void HandleDir(String sDir, String sMask, String sSerie,boolean bRename) {
+//        System.out.println("HandleDir 2("+sDir+","+sMask+","+sSerie+","+bRename+")" );
         Pattern pDate1=Pattern.compile("[0-9][0-9][0-9][0-9][ -\\.][0-9][0-9][ -\\.][0-9][0-9]")
                 ,pDate2=Pattern.compile("[ -\\.][0-9][0-9][ -\\.][0-9][0-9][ -\\.][0-9][0-9][ -\\. ,]")
                 ,pDate3=Pattern.compile("[0-9][0-9][ -\\.][0-9][0-9][ -\\.][0-9][0-9][0-9][0-9]")
@@ -197,8 +216,23 @@ public class jWhisparRen {
     }
     public static void main(String[] args) {
         jWhisparRen app=new jWhisparRen();
-        String sSrc="o:\\Downloads\\completed\\";
-        String sDest="o:\\Videos\\Whisparr\\";
+        String sEnv=getEnv(),sSrc="",sDest="";
+        switch (getEnv()) {
+            case "Server":
+                sSrc="/home/amo/Downloads/completed/";
+                sDest="/home/amo/Videos/Whisparr/";
+                break;
+            case "Client":
+                sSrc="/mnt/amo/Downloads/completed/";
+                sDest="/mnt/amo/Videos/Whisparr/";
+            case "Windows":
+                sSrc="o:\\Downloads\\completed\\";
+                sDest="o:\\Videos\\Whisparr";
+                break;
+            default:
+                System.err.println("Unknown environment: "+sEnv);
+                break;
+        }
 
         if (args.length>1){
             sSrc=args[0];
@@ -223,6 +257,7 @@ public class jWhisparRen {
         app.HandleDir(sSrc,sDest+"Brazzers Exxtra" + File.separator + "Mommy Got Boobs","\\[MommyGotBoobs\\]|MommyGotBoobs","MommyGotBoobs",true);
         app.HandleDir(sSrc,sDest+"Brazzers Exxtra" + File.separator + "Moms In Control","\\[MomsInControl\\]|MomsInControl","MomsInControl",true);
         app.HandleDir(sSrc,sDest+"Brazzers Exxtra" + File.separator + "Pornstars Like It Big","\\[PornstarsLikeItBig\\]|PornstarsLikeItBig","PornstarsLikeItBig",true);
+        app.HandleDir(sSrc,sDest+"Brazzers Exxtra" + File.separator + "ZZ Series","\\[ZZSeries\\]|ZZSeries","ZZSeries",true);
         app.HandleDir(sSrc,sDest+"Taboo Heat","\\[TabooHeat\\]|TabooHeat","TabooHeat",true);
 //        app.HandleDir(sSrc,sDest+"Her Limit","\\[HerLimit\\]|HerLimit","HerLimit",true);
 //        app.HandleDir(sSrc,sDest+"Anal4k","\\[Anal4k\\]|Anal4k","Anal4k",true);

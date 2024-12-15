@@ -7,7 +7,6 @@
 
 
 // select * from MovieFiles where RelativePath like '%BR-DISK%';
-package jRenamer;
 
 import java.io.File;
 // import java.io.IOException;
@@ -28,7 +27,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import org.sqlite.JDBC;
 
 class movieRenamer{
     void Init(String sMovie){
